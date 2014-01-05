@@ -2,7 +2,10 @@
   "name": "cincy-service",
   "version": "0.0.0",
   "dependencies": {
-    "jquery": "~1.9.1"
+    "jquery": ">= 2.0.0",
+    "handlebars": "*",
+    "ember": "*",
+    "foundation": "*"
   },
   "devDependencies": {
     "ember-mocha-adapter": "0.1.1"
