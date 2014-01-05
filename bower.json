@@ -5,7 +5,9 @@
     "jquery": ">= 2.0.0",
     "handlebars": "*",
     "ember": "*",
-    "foundation": "*"
+    "foundation": "*",
+    "leaflet-dist": "~0.7.1",
+    "leaflet-providers": "~1.0.1"
   },
   "devDependencies": {
     "ember-mocha-adapter": "0.1.1"
