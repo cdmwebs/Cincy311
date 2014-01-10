@@ -1,2 +1,2 @@
-CincyService.ApplicationAdapter = DS.FixtureAdapter.extend();
+CincyService.ApplicationAdapter = DS.RESTAdapter.extend();
 

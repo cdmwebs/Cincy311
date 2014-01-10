@@ -13,7 +13,19 @@ CincyService.Call.FIXTURES = [
   },
   {
     id: 2,
-    type: 'Trash cart swap 95 gallon'
+    type: 'Trash cart swap 95 gallon',
+    geo: {
+      type: "Feature",
+      properties: {
+        name: "Coors Field",
+        amenity: "Baseball Stadium",
+        popupContent: "This is where the Rockies play!"
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [-104.99404, 39.75621]
+      }
+    }
   }
 ];
 
