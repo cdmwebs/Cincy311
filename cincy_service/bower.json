@@ -1,0 +1,8 @@
+{
+  "name": "cincy-service",
+  "version": "0.0.0",
+  "dependencies": {
+    "leaflet-dist": "~0.7.1",
+    "leaflet-providers": "~1.0.1"
+  }
+}

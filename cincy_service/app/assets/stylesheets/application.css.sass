@@ -1,19 +1,11 @@
 @import compass/css3
 @import foundation_and_overrides
+@import leaflet-dist/leaflet
 
-body
-  background-color: darken(#fff, 5)
-  margin-top: 1em
+.top-bar
+  margin-bottom: 2em
 
-header, #main, footer
-  background-color: #fff
-
-header
-  @include border-radius(5px 5px 0 0)
-
-footer
-  @include border-radius(0 0 5px 5px)
-  p
-    font-size: 80%
-    color: #aaa
+#map
+  height: 500px
+  width: 100%
 
