@@ -2,16 +2,7 @@
   "name": "cincy-service",
   "version": "0.0.0",
   "dependencies": {
-    "jquery": ">= 2.0.0",
-    "handlebars": "*",
-    "ember": "*",
-    "ember-data": "~1.0.0-beta.4",
-    "foundation": "*",
     "leaflet-dist": "~0.7.1",
-    "leaflet-providers": "~1.0.1",
-    "ember-localstorage-adapter": "*"
-  },
-  "devDependencies": {
-    "ember-mocha-adapter": "0.1.1"
+    "leaflet-providers": "~1.0.1"
   }
 }
