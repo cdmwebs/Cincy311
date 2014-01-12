@@ -1,4 +1,5 @@
 #= require leaflet-dist/leaflet
+#= require leaflet.markerclusterer/dist/leaflet.markercluster-src
 #= require ./store
 #= require_tree ./models
 #= require_tree ./controllers

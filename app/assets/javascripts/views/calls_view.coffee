@@ -1,11 +1,13 @@
 CincyService.CallsView = Ember.View.extend
   map: null
+  markers: null
 
   didInsertElement: ->
     center = [39.09676, -84.51387]
     controller = @get('controller')
     zoomLevel = controller.get('zoomLevel')
     @set('map', L.map('map'))
+    @set('markers', L.markerClusterGroup())
     map = @get('map')
     map.setView(center, zoomLevel)
 
@@ -25,8 +27,11 @@ CincyService.CallsView = Ember.View.extend
 
     @get('controller').get('content').forEach (item, index) =>
       return if item.get('mapped')
-      marker = L.marker([item.get('latitude'), item.get('longitude')]).addTo(map).
+      marker = L.marker([item.get('latitude'), item.get('longitude')]).
         bindPopup("#{item.get('address')}<br />#{item.get('description')}")
       item.set('mapped', true)
+      @get('markers').addLayer(marker)
+
+    map.addLayer(@get('markers'))
   ).observes('controller.content.@each')
 
