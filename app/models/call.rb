@@ -1,4 +1,7 @@
 class Call < ActiveRecord::Base
+  geocoded_by :street_address
+  after_validation :geocode, if: ->(obj){ obj.address.present? && obj.address_changed? }
+
   def self.from_csv_row(row)
     self.new do |c|
       c.csr_number           = row["CSR #"]
@@ -31,6 +34,10 @@ class Call < ActiveRecord::Base
       # c.street_direction     = row["STREET_DIRECTION"]
       # c.street_name          = row["STREET_NAME"]
     end
+  end
+
+  def street_address
+    "#{address} Cincinnati OH"
   end
 end
 
