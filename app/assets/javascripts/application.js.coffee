@@ -8,5 +8,4 @@
 #= require cincy_service
 
 window.CincyService = Ember.Application.create()
-$(document).foundation()
 
