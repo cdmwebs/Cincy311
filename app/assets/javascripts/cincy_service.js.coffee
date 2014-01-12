@@ -10,3 +10,6 @@
 #= require_tree ./routes
 #= require ./router
 #= require_self
+
+L.Icon.Default.imagePath = '/assets/leaflet-dist/images'
+
