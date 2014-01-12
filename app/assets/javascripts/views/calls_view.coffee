@@ -28,7 +28,10 @@ CincyService.CallsView = Ember.View.extend
     @get('controller').get('content').forEach (item, index) =>
       return if item.get('mapped')
       marker = L.marker([item.get('latitude'), item.get('longitude')]).
-        bindPopup("#{item.get('address')}<br />#{item.get('description')}")
+        bindPopup("<h4 style='font-size: 120%; font-weight: bold;'>#{item.get('srType')}</h4>
+                   <h5 style='font-size: 80%'>#{item.get('csrNumber')} | #{item.get('status')} | #{item.get('address')}</h5>
+                   <p style='font-size: 90%; margin: 8px 0;'>#{item.get('description')}</p>
+                   <h5 style='font-size: 80%'>#{item.get('receivedAt')}</h5>")
       item.set('mapped', true)
       @get('markers').addLayer(marker)
 
