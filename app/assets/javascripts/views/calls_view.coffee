@@ -1,9 +1,13 @@
 CincyService.CallsView = Ember.View.extend
+  map: null
+
   didInsertElement: ->
     center = [39.09676, -84.51387]
-    controller = this.get('controller')
+    controller = @get('controller')
     zoomLevel = controller.get('zoomLevel')
-    map = L.map('map').setView(center, zoomLevel)
+    @set('map', L.map('map'))
+    map = @get('map')
+    map.setView(center, zoomLevel)
 
     L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'
@@ -14,4 +18,15 @@ CincyService.CallsView = Ember.View.extend
       controller.set('mapBounds', e.target.getBounds())
 
     @controller.set('map', map)
+
+  contentDidChange: (->
+    map = @get('map')
+    return unless map
+
+    @get('controller').get('content').forEach (item, index) =>
+      return if item.get('mapped')
+      marker = L.marker([item.get('latitude'), item.get('longitude')]).addTo(map).
+        bindPopup("#{item.get('address')}<br />#{item.get('description')}")
+      item.set('mapped', true)
+  ).observes('controller.content.@each')
 
