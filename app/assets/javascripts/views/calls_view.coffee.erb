@@ -27,7 +27,7 @@ CincyService.CallsView = Ember.View.extend
 
     @get('controller').get('content').forEach (item, index) =>
       return if item.get('mapped')
-      marker = L.marker([item.get('latitude'), item.get('longitude')]).
+      marker = L.marker([item.get('latitude'), item.get('longitude')], icon: @markerIcon()).
         bindPopup("<h4 style='font-size: 120%; font-weight: bold;'>#{item.get('srType')}</h4>
                    <h5 style='font-size: 80%'>#{item.get('csrNumber')} | #{item.get('status')} | #{item.get('address')}</h5>
                    <p style='font-size: 90%; margin: 8px 0;'>#{item.get('description')}</p>
@@ -37,4 +37,12 @@ CincyService.CallsView = Ember.View.extend
 
     map.addLayer(@get('markers'))
   ).observes('controller.content.@each')
+
+  markerIcon: (->
+    new L.Icon
+      iconUrl: '<%= asset_path("leaflet-0.7.1/images/marker-icon.png") %>'
+      iconRetinaUrl: '<%= asset_path("leaflet-0.7.1/images/marker-icon-2x.png") %>'
+      shadowUrl: '<%= asset_path("leaflet-0.7.1/images/marker-shadow.png") %>'
+      shadowRetinaUrl: '<%= asset_path("leaflet-0.7.1/images/marker-shadow.png") %>'
+  )
 

@@ -1,5 +1,4 @@
-#= require leaflet-dist/leaflet
-#= require leaflet.markerclusterer/dist/leaflet.markercluster-src
+#= require leaflet_images
 #= require ./store
 #= require_tree ./models
 #= require_tree ./controllers
@@ -10,6 +9,4 @@
 #= require_tree ./routes
 #= require ./router
 #= require_self
-
-L.Icon.Default.imagePath = '/assets/leaflet-dist/images'
 
