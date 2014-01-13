@@ -3,6 +3,9 @@ CincyService.CallsView = Ember.View.extend
   markers: null
 
   didInsertElement: ->
+    @drawMap()
+
+  drawMap: ->
     center = [39.09676, -84.51387]
     controller = @get('controller')
     zoomLevel = controller.get('zoomLevel')
@@ -34,9 +37,8 @@ CincyService.CallsView = Ember.View.extend
                    <h5 style='font-size: 80%'>#{item.get('receivedAt')}</h5>")
       item.set('mapped', true)
       @get('markers').addLayer(marker)
-
     map.addLayer(@get('markers'))
-  ).observes('controller.content.@each')
+  ).observes('controller.content.length')
 
   markerIcon: (->
     new L.Icon

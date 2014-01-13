@@ -24,7 +24,7 @@ CincyService.CallsController = Ember.Controller.extend
 
   foundCalls: (->
     @get('content.length')
-  ).property('content.@each')
+  ).property('content.length')
 
   updateMap: (response) ->
     @set('content', response)
