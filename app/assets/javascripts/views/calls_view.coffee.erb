@@ -10,7 +10,7 @@ CincyService.CallsView = Ember.View.extend
     controller = @get('controller')
     zoomLevel = controller.get('zoomLevel')
     @set('map', L.map('map'))
-    @set('markers', L.markerClusterGroup())
+    @set('markers', L.markerClusterGroup(maxClusterRadius: 30))
     map = @get('map')
     map.setView(center, zoomLevel)
 
