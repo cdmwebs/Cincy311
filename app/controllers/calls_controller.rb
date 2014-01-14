@@ -8,9 +8,14 @@ class CallsController < ApplicationController
       Call.limit(10)
     end
   end
+  expose(:call)
 
   def index
     respond_with calls
+  end
+
+  def show
+    respond_with call
   end
 end
 

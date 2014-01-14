@@ -2,6 +2,10 @@ CincyService.CallsView = Ember.View.extend
   map: null
   markers: null
 
+  init: ->
+    @markerMap = {}
+    @_super()
+
   didInsertElement: ->
     @drawMap()
 
@@ -28,23 +32,35 @@ CincyService.CallsView = Ember.View.extend
     map = @get('map')
     return unless map
 
-    @get('controller').get('content').forEach (item, index) =>
-      return if item.get('mapped')
-      marker = L.marker([item.get('latitude'), item.get('longitude')], icon: @markerIcon()).
-        bindPopup("<h4 style='font-size: 120%; font-weight: bold;'>#{item.get('srType')}</h4>
-                   <h5 style='font-size: 80%'>#{item.get('csrNumber')} | #{item.get('status')} | #{item.get('address')}</h5>
-                   <p style='font-size: 90%; margin: 8px 0;'>#{item.get('description')}</p>
-                   <h5 style='font-size: 80%'>#{item.get('receivedAt')}</h5>")
-      item.set('mapped', true)
+    @get('controller').forEach (item, index) =>
+      return if item.get('isMapped')
+      marker = L.marker([item.get('latitude'), item.get('longitude')], icon: @markerIcon())
+      marker._popup = @markerContent(item)
+      marker.on 'click', (e) =>
+        @get('controller').transitionToRoute('call', item)
+      item.set('isMapped', true)
       @get('markers').addLayer(marker)
+      @markerMap[item.get('id')] = marker
     map.addLayer(@get('markers'))
   ).observes('controller.content.length')
 
-  markerIcon: (->
+  markerIcon: ->
     new L.Icon
       iconUrl: '<%= asset_path("leaflet-0.7.1/images/marker-icon.png") %>'
       iconRetinaUrl: '<%= asset_path("leaflet-0.7.1/images/marker-icon-2x.png") %>'
       shadowUrl: '<%= asset_path("leaflet-0.7.1/images/marker-shadow.png") %>'
       shadowRetinaUrl: '<%= asset_path("leaflet-0.7.1/images/marker-shadow.png") %>'
-  )
+
+  markerContent: (call) ->
+    L.popup().setContent(
+      "<h4 style='font-size: 120%; font-weight: bold;'>#{call.get('srType')}</h4>
+       <h5 style='font-size: 80%'>#{call.get('csrNumber')} | #{call.get('status')} | #{call.get('address')}</h5>
+       <p style='font-size: 90%; margin: 8px 0;'>#{call.get('description')}</p>
+       <h5 style='font-size: 80%'>#{call.get('receivedAt')}</h5>")
+
+  selectedCallDidChange: (->
+    selectedCall = @controller.get('selectedCall')
+    marker = @markerMap[selectedCall?.get('id')]
+    marker?.openPopup()
+  ).observes('controller.selectedCall')
 
