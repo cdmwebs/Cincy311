@@ -28,21 +28,24 @@ CincyService.CallsView = Ember.View.extend
 
     @controller.set('map', map)
 
+    @selectedCallDidChange()
+
   contentDidChange: (->
     map = @get('map')
     return unless map
 
-    @get('controller').forEach (item, index) =>
-      return if item.get('isMapped')
-      marker = L.marker([item.get('latitude'), item.get('longitude')], icon: @markerIcon())
-      marker._popup = @markerContent(item)
-      marker.on 'click', (e) =>
-        @get('controller').transitionToRoute('call', item)
-      item.set('isMapped', true)
-      @get('markers').addLayer(marker)
-      @markerMap[item.get('id')] = marker
-    map.addLayer(@get('markers'))
+    @get('controller').forEach (call, index) => @buildMarker(call)
   ).observes('controller.content.length')
+
+  buildMarker: (call) ->
+    return if call.get('isMapped')
+    marker = L.marker([call.get('latitude'), call.get('longitude')], icon: @markerIcon())
+    marker._popup = @markerContent(call)
+    marker.on 'click', (e) => @get('controller').transitionToRoute('call', call)
+    call.set('isMapped', true)
+    @get('markers').addLayer(marker)
+    @markerMap[call.get('id')] = marker
+    @get('map').addLayer(@get('markers'))
 
   markerIcon: ->
     new L.Icon
@@ -60,6 +63,8 @@ CincyService.CallsView = Ember.View.extend
 
   selectedCallDidChange: (->
     selectedCall = @controller.get('selectedCall')
+    return unless selectedCall and @get('map')
+    @buildMarker(selectedCall) unless selectedCall.get('isMapped')
     marker = @markerMap[selectedCall?.get('id')]
     marker?.openPopup()
   ).observes('controller.selectedCall')
