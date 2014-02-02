@@ -5,6 +5,8 @@ View it live at [http://cincy-311.cdmwebs.com](http://cincy-311.cdmwebs.com).
 Mapping 311 calls with [Open Data][odc] using [OpenStreetMaps][osm] and
 [Open Source Software][oss].
 
+[![Code Climate](https://codeclimate.com/github/cdmwebs/Cincy311.png)](https://codeclimate.com/github/cdmwebs/Cincy311)
+
 ### Architecture
 
 #### Frontend
